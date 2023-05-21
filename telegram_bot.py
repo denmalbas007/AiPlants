@@ -11,9 +11,10 @@ def areas(path):
     unique = df_exploded['col_split'].unique()
     return unique
 
+id_key = '6032665394:AAGJJW2ael1pY42fl-FKaTjp9qYj48DSC2M'
 
 # Создание экземпляра бота
-bot = telebot.TeleBot('6043547925:AAGRqG1Cqr-0mdZFqd7qm93XmgLpe5OpFaE')
+bot = telebot.TeleBot(id_key)
 
 # Обработчик команды /start
 @bot.message_handler(commands=['start'])
@@ -33,8 +34,16 @@ def start(message):
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def handle_text(message):
     recs = get_recs(message.text)
+    columns = ['Название лекарственной культуры', 'В каких медицинских препаратах содержится, наименование', 'Ежегодная потребность лекарственного сырья, тонны', 'Timedelta_plant']
     # Отправка сообщения с выбранным значением
-    bot.send_message(chat_id=message.chat.id, text=f"Вы выбрали: {message.text}\nТоп 5 растений по данному ареалу:\n1. {recs['first']}\n2. {recs['second']}\n3. {recs['third']}\n 4. {recs['fourth']}\n5. {recs['fifth']}")
+    output = ''
+    for k, v in recs.items():
+        output += f'''{k + 1}. Название лекарственной культуры: {v['Название лекарственной культуры']}\n
+        В каких медицинских препаратах содержится: {v['В каких медицинских препаратах содержится, наименование']}\n
+        Ежегодная потребность лекарственного сырья: {v['Ежегодная потребность лекарственного сырья, тонны']}\n
+        Период посева, мес: {v['meantime_plant']}\n 
+        Период сбора урожая, мес: {v['meantime_collect']}\n'''
+    bot.send_message(chat_id=message.chat.id, text=f"Вы выбрали: {message.text}\nТоп 5 растений по данному ареалу:\n {output}")
 
 # Запуск бота
 bot.polling()
