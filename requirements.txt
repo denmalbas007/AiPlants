@@ -1,3 +1,6 @@
 yargy
-PyTelegramBotAPI
 pandas
+PyTelegramBotAPI
+pdfplumber
+pytesseract
+pdf2image

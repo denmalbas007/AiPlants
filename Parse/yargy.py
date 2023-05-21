@@ -1,5 +1,6 @@
 import csv
 
+
 def extract_information(text):
     from yargy import Parser, rule, and_, or_
     from yargy.predicates import gram, normalized, dictionary, custom

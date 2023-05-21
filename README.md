@@ -1,5 +1,5 @@
 # AiPlants
-Book Information Extraction and Plant Recommendation System
+#### Book Information Extraction and Plant Recommendation System
 ### Description
 This project aims to extract information from books and provide plant recommendations to farmers based on the extracted data. It utilizes various libraries and technologies to achieve this functionality.
 
@@ -24,7 +24,5 @@ Additionally, make sure you have the necessary dependencies installed for pytess
 ### Usage
 1. Clone the project repository.
 2. Install the required libraries as mentioned in the installation section.
-3. Set up the Telegram bot and obtain the bot token from the BotFather.
-4. Configure the necessary settings in the project files, such as file paths and API keys.
-5. Run the main script to start the Telegram bot and interact with the system.
-6. Use the Telegram bot interface to perform book information extraction, receive plant recommendations, and explore other available features.
+3. Run the main script to start the Telegram bot and interact with the system.
+4. Use the Telegram bot interface to perform book information extraction, receive plant recommendations, and explore other available features.
