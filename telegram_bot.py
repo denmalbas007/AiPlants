@@ -27,23 +27,29 @@ def start(message):
     buttons = [types.KeyboardButton(option) for option in options]
     keyboard.add(*buttons)
 
+    keyboard.add(types.KeyboardButton('Получить полную таблицу'))
+
     # Отправка приветственного сообщения с клавиатурой
     bot.send_message(chat_id=message.chat.id, text='Привет! Выбери ареал произрастания:', reply_markup=keyboard)
 
 # Обработчик текстовых сообщений
 @bot.message_handler(func=lambda message: True, content_types=['text'])
 def handle_text(message):
-    recs = get_recs(message.text)
-    columns = ['Название лекарственной культуры', 'В каких медицинских препаратах содержится, наименование', 'Ежегодная потребность лекарственного сырья, тонны', 'Timedelta_plant']
-    # Отправка сообщения с выбранным значением
-    output = ''
-    for k, v in recs.items():
-        output += f'''{k + 1}. Название лекарственной культуры: {v['Название лекарственной культуры']}\n
-        В каких медицинских препаратах содержится: {v['В каких медицинских препаратах содержится, наименование']}\n
-        Ежегодная потребность лекарственного сырья: {v['Ежегодная потребность лекарственного сырья, тонны']}\n
-        Период посева, мес: {v['meantime_plant']}\n 
-        Период сбора урожая, мес: {v['meantime_collect']}\n'''
-    bot.send_message(chat_id=message.chat.id, text=f"Вы выбрали: {message.text}\nТоп 5 растений по данному ареалу:\n {output}")
+    if message.text == 'Получить полную таблицу':
+        with open('Plants.xlsx', 'rb') as file:
+            bot.send_document(chat_id=message.chat.id, data=file)
+    else:
+        recs = get_recs(message.text)
+        columns = ['Название лекарственной культуры', 'В каких медицинских препаратах содержится, наименование', 'Ежегодная потребность лекарственного сырья, тонны', 'Timedelta_plant']
+        # Отправка сообщения с выбранным значением
+        output = ''
+        for k, v in recs.items():
+            output += f'''{k + 1}. Название лекарственной культуры: {v['Название лекарственной культуры']}\n
+            В каких медицинских препаратах содержится: {v['В каких медицинских препаратах содержится, наименование']}\n
+            Ежегодная потребность лекарственного сырья: {v['Ежегодная потребность лекарственного сырья, тонны']}\n
+            Период посева, мес: {v['meantime_plant']}\n 
+            Период сбора урожая, мес: {v['meantime_collect']}\n'''
+        bot.send_message(chat_id=message.chat.id, text=f"Вы выбрали: {message.text}\nТоп 5 растений по данному ареалу:\n {output}")
 
 # Запуск бота
 bot.polling()
