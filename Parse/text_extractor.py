@@ -1,5 +1,4 @@
 import pdfplumber
-from tqdm.notebook import tqdm
 import re
 import pickle
 import pytesseract
@@ -9,7 +8,7 @@ from pdf2image import convert_from_path
 def extract_text_from_pdf_atlas(pdf_atlas_path):
     with pdfplumber.open(pdf_atlas_path) as pdf:
         texts = ''
-        for page in tqdm(pdf.pages):
+        for page in pdf.pages:
             line_x = page.width / 2 - 25
             left_column_text = ''
             right_colum_text = ''
@@ -36,7 +35,7 @@ def read_text_from_image(image):
 def extract_text_from_pdf_ussr(ussr_pdf_path):
     images = extract_images_from_pdf(ussr_pdf_path)
     texts = ''
-    for image in tqdm(images):
+    for image in images:
         text = read_text_from_image(image)
         texts += text
     return texts
@@ -45,7 +44,7 @@ def extract_text_from_pdf_ussr(ussr_pdf_path):
 def extract_text_from_pdf_drugs(pdf_path):
     with pdfplumber.open(pdf_path) as pdf:
         texts = ''
-        for page in tqdm(pdf.pages):
+        for page in pdf.pages:
             text = page.extract_text()
             texts += text
     pdf.close()
