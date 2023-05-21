@@ -26,3 +26,5 @@ Additionally, make sure you have the necessary dependencies installed for pytess
 2. Install the required libraries as mentioned in the installation section.
 3. Run the main script to start the Telegram bot and interact with the system.
 4. Use the Telegram bot interface to perform book information extraction, receive plant recommendations, and explore other available features.
+
+link on ours telegram bot - https://t.me/solving_tree_plant4u_bot
